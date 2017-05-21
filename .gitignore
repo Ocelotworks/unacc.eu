@@ -46,6 +46,6 @@ typings/
 .yarn-integrity
 .env
 .idea/
-config/production.json
+config/development.json
 config/development.json
 

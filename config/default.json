@@ -1,0 +1,28 @@
+{
+  "Database": {
+    "client": "mysql",
+    "connection": {
+      "host": "localhost",
+      "port": 3306,
+      "user": "",
+      "password": "",
+      "database": "unacceu"
+    },
+    "pool": {
+      "min": 0,
+      "max": 20
+    }
+  },
+  "Server": {
+    "base": "unacc.eu",
+    "name": "unacc.eu",
+    "port": 3004
+  },
+  "Modules": [
+    "./modules/database.js"
+  ],
+  "Routes": [
+    "./routes/index.js",
+    "./routes/api.js"
+  ]
+}
