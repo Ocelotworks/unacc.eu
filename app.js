@@ -67,6 +67,7 @@ app.load = function load(){
             app.log(`Loading module ${module.info.name}...`);
             app[module.info.id] = module;
         }
+        cb();
     });
 
     app.log("Initialising routes...");
@@ -100,7 +101,12 @@ app.load = function load(){
         res.status(err.status || 500);
         res.render('error');
     });
-}
+};
+
+
+// setInterval(function(){
+//     console.log(app.util.generateID());
+// }, 1000);
 
 
 module.exports = app;

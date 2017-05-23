@@ -19,6 +19,7 @@
     "port": 3004
   },
   "Modules": [
+    "./modules/util.js",
     "./modules/database.js"
   ],
   "Routes": [

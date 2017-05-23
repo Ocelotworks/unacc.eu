@@ -22,6 +22,8 @@ module.exports = function(app){
                 res.json(err);
             }else if(resp[0]){
                 res.header("Content-Type", resp[0].type);
+                res.header("Content-Disposition", (resp[0].type.indexOf("image") === -1 ? "attachment" : "inline") + "; filename="+resp[0].originalName);
+
                 res.send(resp[0].data);
             }else{
                 res.redirect("removed.png");

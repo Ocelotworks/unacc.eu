@@ -3,6 +3,8 @@
  */
 
 const express = require('express');
+
+var fs = require('fs');
 module.exports = function(app){
     var router = express.Router();
 
@@ -20,6 +22,25 @@ module.exports = function(app){
                res.json(resp);
            }
         });
+    });
+
+
+    router.post("/upload", function(req, res){
+        if(req.body && req.body.data){
+           // var type = req.body.data.substring(5).split(";")[0];
+            var type = req.body.type || "image/png";
+            if(app.util.validMimeTypes.indexOf(type) > -1){
+                app.database.uploadFile(new Buffer(req.body.data, "base64"), type, function(err, resp){
+
+                });
+
+                res.send("{}");
+            }else{
+                res.header(415).json({err: "Unsupported MIME Type"});
+            }
+        }else{
+            res.header(400).json({err: "Missing field. data is needed."})
+        }
     });
 
     return router;

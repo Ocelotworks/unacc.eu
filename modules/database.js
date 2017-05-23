@@ -4,6 +4,7 @@
 
 const config = require('config');
 const knex = require('knex')(config.get("Database"));
+const crypto = require('crypto');
 
 module.exports = function(app){
   return {
@@ -19,12 +20,23 @@ module.exports = function(app){
               .asCallback(cb);
       },
       getLinkToView: function getLinkToView(id, cb){
-          knex.select("data.data", "data.type")
+          knex.select("data.data", "data.type", "data.originalName")
               .from("links")
               .where({'links.id': id})
               .limit(1)
               .innerJoin("data", "links.data", "data.id")
               .asCallback(cb);
+      },
+      uploadFile: function uploadFile(file, type, cb){
+          var md5 = crypto.createHash('md5').update(file).digest("hex");
+          knex("data").insert({
+              data: file,
+              hash: md5,
+              type: type
+          }).asCallback(function(err, resp){
+             console.log(resp);
+          });
       }
+
   }
 };
