@@ -14,7 +14,7 @@
     }
   },
   "Server": {
-    "base": "unacc.eu",
+    "base": "http://unacc.eu/",
     "name": "unacc.eu",
     "port": 3004
   },

@@ -4,7 +4,8 @@
 
 const express = require('express');
 
-var fs = require('fs');
+const config = require('config');
+const mime = require('mime');
 module.exports = function(app){
     var router = express.Router();
 
@@ -31,10 +32,8 @@ module.exports = function(app){
             var type = req.body.type || "image/png";
             if(app.util.validMimeTypes.indexOf(type) > -1){
                 app.database.uploadFile(new Buffer(req.body.data, "base64"), type, function(err, resp){
-
+                    res.send(err || config.get("Server.base")+resp+"."+mime.extension(type));
                 });
-
-                res.send("{}");
             }else{
                 res.header(415).json({err: "Unsupported MIME Type"});
             }

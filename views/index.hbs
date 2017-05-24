@@ -1,2 +1,30 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+
+<script>
+    function handleFiles(files){
+        var file = files[0];
+        var fr = new FileReader();
+        fr.addEventListener('load', function(){
+            var data = fr.result.split(",")[1];
+            var type = file.type;
+            var request = new XMLHttpRequest();
+
+            request.onload = function () {
+                var status = request.status; // HTTP response status, e.g., 200 for "200 OK"
+                var data = request.responseText; // Returned data, e.g., an HTML document.
+                document.write(data);
+            };
+
+            request.open("POST", "/api/upload", true);
+
+            request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+
+            request.send("type="+encodeURIComponent(type)+"&data="+encodeURIComponent(data));
+        });
+
+        fr.readAsDataURL(file);
+    }
+</script>
+
+
+
+<input type="file" id="input" onchange="handleFiles(this.files)">

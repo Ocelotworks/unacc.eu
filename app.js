@@ -53,7 +53,7 @@ app.load = function load(){
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
     app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.urlencoded({ extended: false , limit: '50mb'}));
     app.use(cookieParser());
     app.use(express.static(path.join(__dirname, 'public')));
 
@@ -86,7 +86,8 @@ app.load = function load(){
 
 // catch 404 and forward to error handler
     app.use(function(req, res, next) {
-        var err = new Error('Not Found');
+        var err = new Error('Not Found ');
+        console.log(req);
         err.status = 404;
         next(err);
     });
